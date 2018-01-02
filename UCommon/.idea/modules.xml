@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/UCommon.iml" filepath="$PROJECT_DIR$/UCommon.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/clean/clean.iml" filepath="$PROJECT_DIR$/clean/clean.iml" />
       <module fileurl="file://$PROJECT_DIR$/ucommon/ucommon.iml" filepath="$PROJECT_DIR$/ucommon/ucommon.iml" />
       <module fileurl="file://$PROJECT_DIR$/util/util.iml" filepath="$PROJECT_DIR$/util/util.iml" />
     </modules>
