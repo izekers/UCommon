@@ -12,9 +12,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import net.zoker.ucommon.app.R;
+import net.zoker.ucommon.app.datalayer.source.TasksRepository;
 import net.zoker.ucommon.app.mvp.contract.TaskContract;
 import net.zoker.ucommon.app.mvp.presents.TaskPresenter;
+import net.zoker.ucommon.app.tasks.domain.filter.FilterFactory;
+import net.zoker.ucommon.app.tasks.domain.usecase.GetTasks;
 
+import zoker.net.clean.UseCaseHandler;
+import zoker.net.clean.scheduler.UseCaseThreadPoolScheduler;
 import zoker.net.util.ActivityUtils;
 
 /**
@@ -55,14 +60,14 @@ public class TasksActivity extends AppCompatActivity {
 
 
         //create the presenter
-        mTasksPresenter = new TaskPresenter();
+        mTasksPresenter = new TaskPresenter(UseCaseHandler.getInstance(new UseCaseThreadPoolScheduler()),tasksFragment,new GetTasks(new TasksRepository(),new FilterFactory()));
     }
 
     private static final String CURRENT_FILTERING_KEY = "CURRENT_FILTERING_KEY";
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(CURRENT_FILTERING_KEY, mTasksPresenter.getFiltering());
+//        outState.putSerializable(CURRENT_FILTERING_KEY, mTasksPresenter.getFiltering());
 
         super.onSaveInstanceState(outState);
     }
