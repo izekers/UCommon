@@ -39,40 +39,42 @@ public class VersionHelper {
     /**
      * 添加目标版本监听
      *
-     * @param code   目标版本
-     * @param action 高于版本的监听和低于版本的监听
+     * @param code               目标版本
+     * @param overVersionAction  高于版本的监听
+     * @param belowVersionAction 低于版本的监听
      * @return
      */
-    public VersionHelper addVersionControl(int code, VersionAction action) {
+    public VersionHelper addVersionControl(int code, OverVersionAction overVersionAction, BelowVersionAction belowVersionAction) {
         ActionMap actionMap = new ActionMap();
         actionMap.code = code;
-        actionMap.action = action;
+        actionMap.overVersionAction = overVersionAction;
+        actionMap.belowVersionAction = belowVersionAction;
         actionMapList.add(actionMap);
         return this;
     }
 
-    public VersionHelper addControlWithVersion8(VersionAction action) {
-        return addVersionControl(VERSION_8, action);
+    public VersionHelper addControlWithVersion8(OverVersionAction overVersionAction, BelowVersionAction belowVersionAction) {
+        return addVersionControl(VERSION_8, overVersionAction, belowVersionAction);
     }
 
-    public VersionHelper addControlWithVersion7(VersionAction action) {
-        return addVersionControl(VERSION_7, action);
+    public VersionHelper addControlWithVersion7(OverVersionAction overVersionAction, BelowVersionAction belowVersionAction) {
+        return addVersionControl(VERSION_7, overVersionAction, belowVersionAction);
     }
 
-    public VersionHelper addControlWithVersion6(VersionAction action) {
-        return addVersionControl(VERSION_6, action);
+    public VersionHelper addControlWithVersion6(OverVersionAction overVersionAction, BelowVersionAction belowVersionAction) {
+        return addVersionControl(VERSION_6, overVersionAction, belowVersionAction);
     }
 
-    public VersionHelper addControlWithVersion5(VersionAction action) {
-        return addVersionControl(VERSION_5, action);
+    public VersionHelper addControlWithVersion5(OverVersionAction overVersionAction, BelowVersionAction belowVersionAction) {
+        return addVersionControl(VERSION_5, overVersionAction, belowVersionAction);
     }
 
-    public VersionHelper addControlWithVersion4(VersionAction action) {
-        return addVersionControl(VERSION_4, action);
+    public VersionHelper addControlWithVersion4(OverVersionAction overVersionAction, BelowVersionAction belowVersionAction) {
+        return addVersionControl(VERSION_4, overVersionAction, belowVersionAction);
     }
 
-    public VersionHelper addControlWithVersion3(VersionAction action) {
-        return addVersionControl(VERSION_3, action);
+    public VersionHelper addControlWithVersion3(OverVersionAction overVersionAction, BelowVersionAction belowVersionAction) {
+        return addVersionControl(VERSION_3, overVersionAction, belowVersionAction);
     }
 
     /**
@@ -80,37 +82,44 @@ public class VersionHelper {
      */
     public void done() {
         for (ActionMap actionMap : actionMapList) {
-            if (actionMap.action != null) {
-                if (sdk_int > actionMap.code) {
-                    actionMap.action.overVersion(actionMap.code, sdk_int);
-                } else {
-                    actionMap.action.belowVersion(actionMap.code, sdk_int);
-                }
+            if (sdk_int > actionMap.code) {
+                if (actionMap.overVersionAction != null)
+                    actionMap.overVersionAction.done(actionMap.code, sdk_int);
+            } else {
+                if (actionMap.belowVersionAction != null)
+                    actionMap.belowVersionAction.done(actionMap.code, sdk_int);
             }
         }
     }
 
-    public interface VersionAction {
+    public interface OverVersionAction {
         /**
-         * 高于目标版本监听
+         * 目标版本监听
          *
          * @param version        区分版本
          * @param currentVersion 当前版本
          */
-        void overVersion(int version, int currentVersion);
+        void done(int version, int currentVersion);
+    }
 
+    /**
+     * 低于目标版本监听
+     */
+    public interface BelowVersionAction {
         /**
-         * 低于目标版本监听
+         * 目标版本监听
          *
-         * @param version        目标版本
+         * @param version        区分版本
          * @param currentVersion 当前版本
          */
-        void belowVersion(int version, int currentVersion);
+        void done(int version, int currentVersion);
     }
+
 
     static class ActionMap {
         int code;
-        VersionAction action;
+        OverVersionAction overVersionAction;
+        BelowVersionAction belowVersionAction;
 
         public int getCode() {
             return code;
@@ -120,12 +129,20 @@ public class VersionHelper {
             this.code = code;
         }
 
-        public VersionAction getAction() {
-            return action;
+        public OverVersionAction getOverVersionAction() {
+            return overVersionAction;
         }
 
-        public void setAction(VersionAction action) {
-            this.action = action;
+        public void setOverVersionAction(OverVersionAction overVersionAction) {
+            this.overVersionAction = overVersionAction;
+        }
+
+        public BelowVersionAction getBelowVersionAction() {
+            return belowVersionAction;
+        }
+
+        public void setBelowVersionAction(BelowVersionAction belowVersionAction) {
+            this.belowVersionAction = belowVersionAction;
         }
     }
 
@@ -154,10 +171,11 @@ public class VersionHelper {
             mapList = new ArrayList<>();
         }
 
-        public DefaultBuider addDefaultVersionControl(int code, VersionAction action) {
+        public DefaultBuider addDefaultVersionControl(int code, OverVersionAction overVersionAction,BelowVersionAction belowVersionAction) {
             ActionMap actionMap = new ActionMap();
             actionMap.code = code;
-            actionMap.action = action;
+            actionMap.overVersionAction = overVersionAction;
+            actionMap.belowVersionAction = belowVersionAction;
             VersionHelper.defaultMapList.add(actionMap);
             return this;
         }
