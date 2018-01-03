@@ -6,4 +6,10 @@ package zoker.net.mvp.base;
 
 public interface MvpView<P extends Presenter> {
     void setPresenter(P presenter);
+
+    void showLoading(String msg);
+
+    void hideLoading();
+
+    void showError(String errorMsg);
 }

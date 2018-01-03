@@ -1,8 +1,8 @@
-package net.zoker.ucommon.app.demo1.dao.model;
+package net.zoker.ucommon.app.demo3.dao.model;
 
 
-import net.zoker.ucommon.app.demo1.Callback;
-import net.zoker.ucommon.app.demo1.dao.bean.User;
+import net.zoker.ucommon.app.demo3.Callback;
+import net.zoker.ucommon.app.demo3.dao.bean.User;
 
 /**
  * Created by zoker on 2018/1/2.

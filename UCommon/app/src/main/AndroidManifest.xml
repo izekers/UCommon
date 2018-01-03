@@ -26,6 +26,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".demo1.view.LoginActivity" />
+        <activity android:name=".demo2.view.LoginActivity" />
+        <activity android:name=".demo2.view.BaseActivity" />
+        <activity android:name=".demo3.view.LoginActivity" />
     </application>
 
 </manifest>

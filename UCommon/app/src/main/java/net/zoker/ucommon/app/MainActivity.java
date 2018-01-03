@@ -25,13 +25,14 @@ public class MainActivity extends AppCompatActivity {
 
         datas = new ModelBean[]{
                 new ModelBean("基础的MVP框架", this, net.zoker.ucommon.app.demo1.view.LoginActivity.class),
+                new ModelBean("改进的MVP框架", this, net.zoker.ucommon.app.demo2.view.LoginActivity.class),
+                new ModelBean("再改进的MVP框架", this, net.zoker.ucommon.app.demo3.view.LoginActivity.class),
         };
 
         getSupportFragmentManager().beginTransaction().add(R.id.root, mainFragment = new MainFragment()).commit();
 
         mainFragment.setData(Arrays.asList(datas));
     }
-
 
     public static class MainFragment extends SingleListFragment<ModelBean,MainViewHolder> {
 
