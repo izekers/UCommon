@@ -32,4 +32,6 @@ dependencies {
     compile project(path: ':util')
     implementation project(':mvp')
     compile 'com.github.izekers:UniRecycler:v1.0.1'
+    compile "android.arch.persistence.room:runtime:1.0.0-alpha1"
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha1"
 }
